@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Curriculum></Curriculum>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Curriculum from './components/Curriculum.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Curriculum
   }
 }
 </script>
@@ -17,6 +16,5 @@ export default {
 <style lang="scss">
   #app {
     color: $c-primary;
-    padding: $gap-xl;
   }
 </style>

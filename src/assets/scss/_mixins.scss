@@ -1,7 +1,7 @@
 @mixin font-primary {
-  font-family: Merriweather, Helvetica, Arial, sans-serif;;
+  font-family: "Rubik", Helvetica, Arial, sans-serif !important;
 }
 
 @mixin font-secondary {
-  font-family: Playfair, Times New Roman, Serif;
+  font-family: "Playfair Display", Times New Roman, Serif !important;
 }

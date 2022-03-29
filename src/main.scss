@@ -1,5 +1,7 @@
 @import 'assets/scss/config';
 @import 'assets/scss/reset';
+$icomoon-font-path: "assets/icons/fonts";
+@import 'assets/icons/style';
 
 html {
   height: 100%;

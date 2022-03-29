@@ -44,19 +44,19 @@ export default {
           name: 'github',
           label: 'rociopozatejeda',
           icon: 'icon-github',
-          link: 'https://www.linkedin.com/in/rociopozatejeda/'
+          link: 'https://github.com/PozaTR'
         },
         {
           name: 'twitter',
           label: 'PozaTR',
           icon: 'icon-twitter',
-          link: 'https://github.com/PozaTR'
+          link: 'https://twitter.com/TrPoza'
         },
         {
           name: 'linkedin',
           label: 'TrPoza',
           icon: 'icon-linkedin',
-          link: 'https://twitter.com/TrPoza'
+          link: 'https://www.linkedin.com/in/rociopozatejeda/'
         },
       ]
     }

@@ -1,5 +1,14 @@
-@import 'assets/scss/variables';
+@import 'assets/scss/config';
+@import 'assets/scss/reset';
+$icomoon-font-path: "assets/icons/fonts";
+@import 'assets/icons/style';
+
+html {
+  height: 100%;
+}
 
 body {
-  background-color: $c-tertiary;
+  @include font-primary;
+  background-color: white;
+  min-height: 100%;
 }

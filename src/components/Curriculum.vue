@@ -14,12 +14,33 @@
       </ul>
       <img class="header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
     </header>
+    <Dropdown
+      title="Experiencia laboral"
+      :list="experienceInfo"
+    ></Dropdown>
+    <Dropdown
+      title="Experiencia laboral"
+      :list="experienceInfo"
+    ></Dropdown>
+    <Dropdown
+      title="Experiencia laboral"
+      :list="experienceInfo"
+    ></Dropdown>
+    <Dropdown
+      title="Experiencia laboral"
+      :list="experienceInfo"
+    ></Dropdown>
   </div>
 </template>
 
 <script>
+import Dropdown from '@/components/Dropdown'
+
 export default {
   name: 'Curriculum',
+  components: {
+    Dropdown
+  },
   data() {
     return {
       contactInfo: [
@@ -58,7 +79,30 @@ export default {
           icon: 'icon-linkedin',
           link: 'https://www.linkedin.com/in/rociopozatejeda/'
         },
-      ]
+      ],
+      experienceInfo: [
+        {
+          title: 'Desarrolladora front end',
+          date: 'Enero 2021-actualidad',
+          info: [
+            {
+              name: 'Gyoza Studio',
+              label: 'Desarrollo con Vue, Vuex y Nativescript'
+            }
+          ]
+        },
+        {
+          title: 'Desarrolladora front end',
+          date: 'Noviembre 2019- Diciembre 2021',
+          info: [
+            {
+              name: 'JSV Logistic',
+              label: 'Desarrollo con Angular 7, Laravel y MySQL'
+            }
+          ]
+        }
+      ],
+
     }
   }
 }

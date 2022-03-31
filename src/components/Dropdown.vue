@@ -8,9 +8,9 @@
         v-for="(item, idx) in list"
         :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`">
         <h4>
-          {{item.title}}
+          {{$t(item.title)}}
         </h4>
-        <p>{{item.date}}</p>
+        <p>{{$t(item.date)}}</p>
         <ul>
           <li
             v-for="(text, idx) in item.info"
@@ -19,7 +19,7 @@
             <p>
               {{text.name}}
             </p>
-            <p>{{text.label}}</p>
+            <p>{{$t(text.label)}}</p>
           </li>
         </ul>
       </li>

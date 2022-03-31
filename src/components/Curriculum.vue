@@ -15,20 +15,24 @@
       <img class="header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
     </header>
     <Dropdown
-      title="Experiencia laboral"
-      :list="experienceInfo"
+      :title="$t('experience_title')"
+      :list="jobExperience"
     ></Dropdown>
     <Dropdown
-      title="Experiencia laboral"
-      :list="experienceInfo"
+      :title="$t('projects_title')"
+      :list="jobExperience"
     ></Dropdown>
     <Dropdown
-      title="Experiencia laboral"
-      :list="experienceInfo"
+      :title="$t('education_title')"
+      :list="jobExperience"
     ></Dropdown>
     <Dropdown
-      title="Experiencia laboral"
-      :list="experienceInfo"
+      :title="$t('languages_title')"
+      :list="jobExperience"
+    ></Dropdown>
+    <Dropdown
+      :title="$t('skills_title')"
+      :list="jobExperience"
     ></Dropdown>
   </div>
 </template>
@@ -80,29 +84,28 @@ export default {
           link: 'https://www.linkedin.com/in/rociopozatejeda/'
         },
       ],
-      experienceInfo: [
+      jobExperience: [
         {
-          title: 'Desarrolladora front end',
-          date: 'Enero 2021-actualidad',
+          title: 'job_experience_title-0',
+          date: 'Enero 2021- actualidad',
           info: [
             {
               name: 'Gyoza Studio',
-              label: 'Desarrollo con Vue, Vuex y Nativescript'
+              label: 'job_experience_info-0'
             }
           ]
         },
         {
-          title: 'Desarrolladora front end',
+          title: 'job_experience_title-0',
           date: 'Noviembre 2019- Diciembre 2021',
           info: [
             {
               name: 'JSV Logistic',
-              label: 'Desarrollo con Angular 7, Laravel y MySQL'
+              label: 'job_experience_info-1'
             }
           ]
         }
-      ],
-
+      ]
     }
   }
 }

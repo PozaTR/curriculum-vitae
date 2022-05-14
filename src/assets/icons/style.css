@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'curriculum';
-  src:  url('fonts/curriculum.eot?hxg2o9');
-  src:  url('fonts/curriculum.eot?hxg2o9#iefix') format('embedded-opentype'),
-    url('fonts/curriculum.ttf?hxg2o9') format('truetype'),
-    url('fonts/curriculum.woff?hxg2o9') format('woff'),
-    url('fonts/curriculum.svg?hxg2o9#curriculum') format('svg');
+  src:  url('fonts/curriculum.eot?9ke4xb');
+  src:  url('fonts/curriculum.eot?9ke4xb#iefix') format('embedded-opentype'),
+    url('fonts/curriculum.ttf?9ke4xb') format('truetype'),
+    url('fonts/curriculum.woff?9ke4xb') format('woff'),
+    url('fonts/curriculum.svg?9ke4xb#curriculum') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -45,4 +45,10 @@
 }
 .icon-new-tab:before {
   content: "\ea7e";
+}
+.icon-android:before {
+  content: "\eac0";
+}
+.icon-appleinc:before {
+  content: "\eabe";
 }

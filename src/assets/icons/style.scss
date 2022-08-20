@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?hxg2o9');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?hxg2o9#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?hxg2o9') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?hxg2o9') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?hxg2o9##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?9ke4xb');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?9ke4xb#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?9ke4xb') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?9ke4xb') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?9ke4xb##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -60,6 +60,16 @@
 .icon-new-tab {
   &:before {
     content: $icon-new-tab; 
+  }
+}
+.icon-android {
+  &:before {
+    content: $icon-android; 
+  }
+}
+.icon-appleinc {
+  &:before {
+    content: $icon-appleinc; 
   }
 }
 

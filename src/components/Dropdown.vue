@@ -25,6 +25,18 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    forcedOpenStatus: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    forcedOpenStatus: {
+      immediate: true,
+      handler (forcedOpenStatus) {
+        this.isOpen = forcedOpenStatus
+      }
     }
   },
   data() {
@@ -44,7 +56,6 @@ export default {
   .dropdown {
     border: 1px solid $c-primary-darken;
     border-radius: 0.25em;
-    margin: $gap-xs;
     overflow: hidden;
 
     &__title {

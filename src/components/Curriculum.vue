@@ -1,119 +1,159 @@
 <template>
   <div class="curriculum">
     <header class="curriculum__header">
-      <h1 class="curriculum__header__title">Rocío Poza Tejeda</h1>
-      <h2 class="curriculum__header__subtitle">Front end developer</h2>
-      <ul class="curriculum__header__list">
-        <li v-for="(item, idx) in contactInfo"
-            :key="`item--${idx}`" class="curriculum__header__item">
-          <component
-              :is="item.link ? 'a' : 'div'"
-              :href="item.link"
-              :target="item.link ? '_blank' : null">
-            <i :class="[
+      <div class="curriculum__wrapper curriculum__header__wrapper">
+        <h1 class="curriculum__header__title">Rocío Poza Tejeda</h1>
+        <h2 class="curriculum__header__subtitle">Front end developer</h2>
+        <ul class="curriculum__header__list">
+          <li v-for="(item, idx) in contactInfo"
+              :key="`item--${idx}`" class="curriculum__header__item">
+            <component
+                :is="item.link ? 'a' : 'div'"
+                :href="item.link"
+                :target="item.link ? '_blank' : null">
+              <i :class="[
                 'header__item__icon',
                 'icon',
                 item.icon,
                 `curriculum__header__item__icon--${item.name}`
             ]"></i>
-            <p class="curriculum__header__item__label">{{item.label}}</p>
-            <i v-if="item.link" class="icon icon-new-tab curriculum__header__item__link"></i>
-          </component>
-        </li>
-      </ul>
-      <img class="curriculum__header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
+              <p class="curriculum__header__item__label">{{item.label}}</p>
+              <i v-if="item.link" class="icon icon-new-tab curriculum__header__item__link"></i>
+            </component>
+          </li>
+        </ul>
+        <img class="curriculum__header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
+      </div>
     </header>
-    <section class="curriculum__content">
-
-    </section>
-    <Dropdown
-      :title="$t('experience_title')"
-    >
-      <ol class="list">
-        <li
-          v-for="(item, idx) in jobExperience"
-          :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
-          class="info">
-          <h4 class="info__title">{{$t(item.title)}}</h4>
-          <p class="info__date">{{ item.dateEnd ? `${formatDate(item.dateStart)} - ${formatDate(item.dateEnd)}` : `${formatDate(item.dateStart)} - ${$t('date_now')}` }}</p>
-          <p class="info__subtitle">{{item.company}}</p>
-          <p v-if="item.topics"
-             class="info__content">{{$t(item.topics)}}</p>
-        </li>
-      </ol>
-    </Dropdown>
-    <Dropdown
-      :title="$t('projects_title')"
-    >
-      <ol class="list">
-        <li v-for="(project, idx) in projectsInfo"
-            :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
-            class="info">
-          <div class="info__header">
-            <h4 class="info__title">{{$t(project.title)}}</h4>
+    <section class="curriculum__wrapper curriculum__content">
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('personal-info_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <div>
+          <p class="info__content">{{$t('personal-info_text-0')}}</p>
+          <p class="info__content">{{$t('personal-info_text-1')}}</p>
+          <p class="info__content">{{$t('personal-info_text-2')}}</p>
+          <p class="info__content">{{$t('personal-info_text-3')}}</p>
+        </div>
+      </Dropdown>
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('experience_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <ol class="list">
+          <li
+              v-for="(item, idx) in jobExperience"
+              :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
+              class="info">
+            <h4 class="info__title">{{$t(item.title)}}</h4>
+            <p class="info__date">{{ item.dateEnd ? `${formatDate(item.dateStart)} - ${formatDate(item.dateEnd)}` : `${formatDate(item.dateStart)} - ${$t('date_now')}` }}</p>
+            <p class="info__subtitle">{{item.company}}</p>
+            <p v-if="item.topics"
+               class="info__content">{{$t(item.topics)}}</p>
+          </li>
+        </ol>
+      </Dropdown>
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('skills_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <ul class="list">
+          <li v-for="(skill, idx) in skillsInfo"
+              :key="`skill--${idx}-${Math.round(Math.random() * 1000)}`"
+              class="curriculum__skill"
+          >
+            <h4 class="info__title">{{$t(skill.title)}}</h4>
+            <div class="curriculum__skill__container">
+              <img v-for="(logo, idx) in skill.logos"
+                   :src="require(`@/assets/images/logo-${logo}.svg`)"
+                   :alt="`Imagen con el logo de ${logo}`"
+                   :key="`logo--${idx}-${Math.round(Math.random() * 1000)}`"
+                   class="curriculum_skill_logo"
+              />
+            </div>
+          </li>
+        </ul>
+      </Dropdown>
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('projects_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <ol class="list">
+          <li v-for="(project, idx) in projectsInfo"
+              :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
+              class="info">
             <div class="info__header">
-              <a v-for="(link, idx) in project.links"
-                 class="info__link"
-                 :key="`link--${idx}-${Math.round(Math.random() * 1000)}`"
-                 :href="link.url"
-                 target="_blank">
-                <i class="icon"
-                   :class="[
+              <h4 class="info__title">{{$t(project.title)}}</h4>
+              <div class="info__header">
+                <a v-for="(link, idx) in project.links"
+                   class="info__link"
+                   :key="`link--${idx}-${Math.round(Math.random() * 1000)}`"
+                   :href="link.url"
+                   target="_blank">
+                  <i class="icon"
+                     :class="[
                        link.icon,
                        `info__icon__${link.icon}`
                    ]"
-                ></i>
-              </a>
+                  ></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <p class="info__date">{{formatDate(project.date, true)}}</p>
-          <p v-if="project.type"
-             class="info__subtitle">{{project.type}}</p>
-          <p v-if="project.topics"
-             class="info__content">{{$t(project.topics)}}</p>
-        </li>
-      </ol>
-    </Dropdown>
-    <Dropdown
-      :title="$t('education_title')"
-    >
-      <ol class="list">
-        <li
-          v-for="(education, idx) in educationInfo"
-          :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
-          class="info">
-          <h4 class="info__title">{{$t(education.title)}}</h4>
-          <p class="info__date">{{ education.dateEnd ? `${formatDate(education.dateStart)} - ${formatDate(education.dateEnd)}` : `${formatDate(education.dateStart)} - ${$t('date_now')}` }}</p>
-          <p v-if="education.place"
-             class="info__subtitle">{{education.place}}</p>
-          <p v-if="education.topics"
-             class="info__content">{{$t(education.topics)}}</p>
-        </li>
-      </ol>
-    </Dropdown>
-    <Dropdown
-      :title="$t('languages_title')"
-    >
-      <h4 class="info__title">{{$t('languages_title-0')}}</h4>
-    </Dropdown>
-    <Dropdown
-      :title="$t('skills_title')"
-    >
-      <ul class="list">
-        <li v-for="(skill, idx) in skillsInfo"
-            :key="`skill--${idx}-${Math.round(Math.random() * 1000)}`"
-            class="curriculum__skill"
-        >
-          <h4 class="info__title">{{$t(skill.title)}}</h4>
-          <img v-for="(logo, idx) in skill.logos"
-               :src="require(`@/assets/images/logo_${logo}.svg`)"
-               :alt="`Imagen con el logo de ${logo}`"
-               :key="`logo--${idx}-${Math.round(Math.random() * 1000)}`"
-               class="curriculum__skill__logo"
-          />
-        </li>
-      </ul>
-    </Dropdown>
+            <p class="info__date">{{formatDate(project.date, true)}}</p>
+            <p v-if="project.type"
+               class="info__subtitle">{{project.type}}</p>
+            <p v-if="project.topics"
+               class="info__content">{{$t(project.topics)}}</p>
+          </li>
+        </ol>
+      </Dropdown>
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('education_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <ol class="list">
+          <li
+              v-for="(education, idx) in educationInfo"
+              :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
+              class="info">
+            <h4 class="info__title">{{$t(education.title)}}</h4>
+            <p class="info__date">{{ education.dateEnd ? `${formatDate(education.dateStart)} - ${formatDate(education.dateEnd)}` : `${formatDate(education.dateStart)} - ${$t('date_now')}` }}</p>
+            <p v-if="education.place"
+               class="info__subtitle">{{education.place}}</p>
+            <p v-if="education.topics"
+               class="info__content">{{$t(education.topics)}}</p>
+          </li>
+        </ol>
+      </Dropdown>
+      <Dropdown
+          class="curriculum__content__dropdown"
+          :title="$t('languages_title')"
+          :forcedOpenStatus="isDesktopMode"
+      >
+        <ul>
+          <li
+              v-for="(language, idx1) in languages"
+              :key="`language--${idx1}-${Math.round(Math.random() * 1000)}`"
+              class="info">
+            <h4 class="info__title">{{$t(language.title)}}</h4>
+            <ol>
+              <li
+                  v-for="(certificate, idx2) in language.certificates"
+                  :key="`certificate--${idx2}-${Math.round(Math.random() * 1000)}`">
+                <p class="info__subtitle">{{certificate.name}}</p>
+                <p class="info__date">{{ formatDate(certificate.date, true)}}</p>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </Dropdown>
+    </section>
   </div>
 </template>
 
@@ -128,6 +168,7 @@ export default {
   data() {
     return {
       publicPath: process.env.BASE_URL,
+      isDesktopMode: false,
       contactInfo: [
         {
           name: 'location',
@@ -325,7 +366,7 @@ export default {
           title: 'skills_title-0',
           logos: [
               'vue',
-              'nativescriptVue',
+              'ns_vue',
               'angular',
               'react',
               'laravel'
@@ -334,12 +375,12 @@ export default {
         {
           title: 'skills_title-1',
           logos: [
-            'javascript',
-            'html',
+            'js',
+            'html5',
             'css3',
             'sass',
             'php',
-            'MySQL',
+            'mysql',
             'git',
           ]
         },
@@ -350,8 +391,23 @@ export default {
               'trello',
               'postman',
               'jira',
-              'visual',
-              'phpStorm'
+              'vscode',
+              'php_storm'
+          ]
+        }
+      ],
+      languages: [
+        {
+          title: 'languages_title-0',
+          certificates: [
+            {
+              name: 'Cambridge First Certificate (B2)',
+              date: 1546297200000
+            },
+            {
+              name: 'Cambridge First Certificate (B1)',
+              date: 1514761200000
+            }
           ]
         }
       ]
@@ -363,18 +419,34 @@ export default {
         ? new Date(timestamp).toLocaleDateString('es', { year: 'numeric' })
         : new Date(timestamp).toLocaleDateString('es', { year: 'numeric', month: 'long'})
     }
+  },
+  mounted() {
+    const desktopMode = window.matchMedia('(min-width: 768px)')
+
+    desktopMode.addListener((isDesktopMode) => {
+      console.log('window.matchMedia', isDesktopMode)
+      this.isDesktopMode = isDesktopMode.matches
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .curriculum {
+  &__wrapper {
+    margin: 0 auto;
+    max-width: 1024px;
+  }
+
   &__header {
     background: linear-gradient(30deg, $c-tertiary-pure 0%, $c-primary-darken 100%);
-    display: grid;
-    justify-content: center;
-    padding: $gap-xl $gap-xl $gap-xxl;
-    text-align: center;
+
+    &__wrapper {
+      display: grid;
+      justify-content: center;
+      padding: $gap-xl $gap-xl $gap-xxl;
+      text-align: center;
+    }
 
     &__title {
       @include font-secondary;
@@ -458,18 +530,38 @@ export default {
     }
   }
 
+  &__content {
+    padding: $gap-xs;
+
+    &__dropdown {
+      & + & {
+        margin-top: $gap-xs;
+      }
+    }
+  }
+
   &__skill {
+    &__container {
+      display: grid;
+      column-gap: 8px;
+      grid-template-columns: repeat(7, 40px);
+      grid-template-rows: 40px;
+      margin: $gap-s 0;
+      row-gap: $gap-xxs;
+    }
+
     &__logo {
-      height: 32px;
+      background-color: red;
     }
   }
 
 
   @media all and (min-width: 724px) {
     &__header {
-
-      grid-template-columns: 2fr 1fr;
-      text-align: left;
+      &__wrapper {
+        grid-template-columns: 2fr 1fr;
+        text-align: left;
+      }
 
       &__title {
         grid-column: 1;
@@ -491,15 +583,25 @@ export default {
       }
 
       &__item {
+        max-width: fit-content;
 
         &:last-child {
           margin-bottom: 0;
         }
       }
     }
+
+    &__content {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+
+      &__dropdown {
+        margin: 0 !important;
+      }
+    }
   }
 }
-
 
 .info {
   &+& {
@@ -571,6 +673,7 @@ export default {
   &__content {
     color: $c-tertiary-darken;
     font-weight: 300;
+    margin-bottom: $gap-xxs;
 
     &::first-letter {
       text-transform: capitalize;

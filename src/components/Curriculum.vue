@@ -25,7 +25,9 @@
         <img class="curriculum__header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
       </div>
     </header>
-    <section class="curriculum__wrapper curriculum__content">
+    <section
+        ref="masonryContainer"
+        class="curriculum__wrapper curriculum__content">
       <Dropdown
           class="curriculum__content__dropdown"
           :title="$t('personal-info_title')"
@@ -159,6 +161,7 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
+import {relocateMasonryItems} from '@/utils/methods'
 
 export default {
   name: 'Curriculum',
@@ -426,6 +429,11 @@ export default {
     desktopMode.addListener((isDesktopMode) => {
       console.log('window.matchMedia', isDesktopMode)
       this.isDesktopMode = isDesktopMode.matches
+      relocateMasonryItems({
+        masonryContainer: this.$refs.masonryContainer,
+        columnQty: 2,
+        itemDelay: 500
+      })
     })
   }
 }
@@ -592,11 +600,10 @@ export default {
     }
 
     &__content {
-      display: grid;
-      gap: 8px;
-      grid-template-columns: 1fr 1fr;
+      position: relative;
 
       &__dropdown {
+        position: absolute;
         margin: 0 !important;
       }
     }

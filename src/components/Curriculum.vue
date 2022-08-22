@@ -161,7 +161,7 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
-import {relocateMasonryItems} from '@/utils/methods'
+import {clearMasonryStyles, delay, relocateMasonryItems} from '@/utils/methods'
 
 export default {
   name: 'Curriculum',
@@ -424,16 +424,37 @@ export default {
     }
   },
   mounted() {
-    const desktopMode = window.matchMedia('(min-width: 768px)')
+    const desktopMode = window.matchMedia('(min-width: 724px)')
 
     desktopMode.addListener((isDesktopMode) => {
       console.log('window.matchMedia', isDesktopMode)
       this.isDesktopMode = isDesktopMode.matches
-      relocateMasonryItems({
-        masonryContainer: this.$refs.masonryContainer,
-        columnQty: 2,
-        itemDelay: 500
-      })
+
+      const relocateMasonryItemsHandler = () => {
+        relocateMasonryItems({
+          masonryContainer: this.$refs.masonryContainer,
+          columnQty: 3
+        })
+      }
+
+      if (this.isDesktopMode) {
+        this.$refs.masonryContainer.style.visibility = 'hidden'
+        delay(() => {
+          relocateMasonryItems({
+            masonryContainer: this.$refs.masonryContainer,
+            columnQty: 3
+          })
+        }, 500)
+            .then(() => {
+          this.$refs.masonryContainer.style.visibility = 'visible'
+        })
+
+        window.addEventListener('resize', relocateMasonryItemsHandler)
+
+      } else {
+        window.removeEventListener('resize', relocateMasonryItemsHandler)
+        clearMasonryStyles({ masonryContainer: this.$refs.masonryContainer })
+      }
     })
   }
 }

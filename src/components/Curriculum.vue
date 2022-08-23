@@ -25,7 +25,9 @@
         <img class="curriculum__header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
       </div>
     </header>
-    <section class="curriculum__wrapper curriculum__content">
+    <section
+        ref="masonryContainer"
+        class="curriculum__wrapper curriculum__content">
       <Dropdown
           class="curriculum__content__dropdown"
           :title="$t('personal-info_title')"
@@ -72,7 +74,7 @@
                    :src="require(`@/assets/images/logo-${logo}.svg`)"
                    :alt="`Imagen con el logo de ${logo}`"
                    :key="`logo--${idx}-${Math.round(Math.random() * 1000)}`"
-                   class="curriculum_skill_logo"
+                   class="curriculum__skill__logo"
               />
             </div>
           </li>
@@ -159,6 +161,7 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
+import {clearMasonryStyles, delay, relocateMasonryItems} from '@/utils/methods'
 
 export default {
   name: 'Curriculum',
@@ -309,10 +312,6 @@ export default {
           date: 1577833200000,
           links: [
             {
-              url: 'https://roci-invitation.web.app/',
-              icon: 'icon-new-tab'
-            },
-            {
               url: 'https://github.com/PozaTR/roci-Invitation',
               icon: 'icon-github'
             }
@@ -349,10 +348,6 @@ export default {
           title: "Caso de código heredado",
           date: 1546297200000,
           links: [
-            {
-              url: 'https://pozatr.github.io/g-m3-React-React-pita/#/',
-              icon: 'icon-new-tab'
-            },
             {
               url: 'https://github.com/PozaTR/g-m3-React-React-pita',
               icon: 'icon-github'
@@ -421,11 +416,43 @@ export default {
     }
   },
   mounted() {
-    const desktopMode = window.matchMedia('(min-width: 768px)')
+    const desktopMode = window.matchMedia('(min-width: 724px)')
+
+    const relocateMasonryItemsHandler = () => {
+      relocateMasonryItems({
+        masonryContainer: this.$refs.masonryContainer,
+        columnQty: 2
+      })
+    }
+
+    const desktopModeResize = () => {
+      this.$refs.masonryContainer.style.visibility = 'hidden'
+      delay(() => {
+        relocateMasonryItems({
+          masonryContainer: this.$refs.masonryContainer,
+          columnQty: 2
+        })
+      }, 500)
+          .then(() => {
+            this.$refs.masonryContainer.style.visibility = 'visible'
+          })
+
+      window.addEventListener('resize', relocateMasonryItemsHandler)
+    }
+
+    if (window.innerWidth >= 724) {
+      desktopModeResize()
+    }
 
     desktopMode.addListener((isDesktopMode) => {
-      console.log('window.matchMedia', isDesktopMode)
       this.isDesktopMode = isDesktopMode.matches
+
+      if (this.isDesktopMode) {
+        desktopModeResize()
+      } else {
+        window.removeEventListener('resize', relocateMasonryItemsHandler)
+        clearMasonryStyles({ masonryContainer: this.$refs.masonryContainer })
+      }
     })
   }
 }
@@ -465,6 +492,7 @@ export default {
     &__image {
       border-radius: 8px;
       border: 2px solid $c-white;
+      justify-self: flex-end;
       max-width: 320px;
       width: 100%;
     }
@@ -531,7 +559,7 @@ export default {
   }
 
   &__content {
-    padding: $gap-xs;
+    padding: $gap-xl;
 
     &__dropdown {
       & + & {
@@ -542,16 +570,15 @@ export default {
 
   &__skill {
     &__container {
-      display: grid;
-      column-gap: 8px;
-      grid-template-columns: repeat(7, 40px);
-      grid-template-rows: 40px;
-      margin: $gap-s 0;
-      row-gap: $gap-xxs;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     &__logo {
-      background-color: red;
+      $size: 40px;
+      height: $size;
+      margin: $gap-xxs;
+      width: $size;
     }
   }
 
@@ -592,11 +619,10 @@ export default {
     }
 
     &__content {
-      display: grid;
-      gap: 8px;
-      grid-template-columns: 1fr 1fr;
+      position: relative;
 
       &__dropdown {
+        position: absolute;
         margin: 0 !important;
       }
     }
@@ -658,7 +684,7 @@ export default {
   &__date {
     font-size: $fs-x-small;
     color: $c-primary;
-    margin-bottom: $gap-xxs;
+    margin: ($gap-xxs - 4) 0 $gap-xxs;
     font-weight: 400;
 
     &::first-letter {

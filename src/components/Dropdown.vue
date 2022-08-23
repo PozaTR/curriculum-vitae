@@ -46,7 +46,9 @@ export default {
   },
   methods: {
     toogleDropdown() {
-      this.isOpen = !this.isOpen
+      if (!this.forcedOpenStatus) {
+        this.isOpen = !this.isOpen
+      }
     }
   }
 }
@@ -64,7 +66,9 @@ export default {
       font-size: $fs-medium;
       font-weight: $fw-bold;
       padding: $gap-xxs $gap-s;
-      text-transform: capitalize;
+      &::first-letter {
+        text-transform: uppercase;
+      }
     }
 
     &__container {

@@ -554,7 +554,7 @@ export default {
 
       &__link {
         color: $c-secondary-darken;
-        margin-left: $gap-xxs / 2;
+        margin-left: 4px;
       }
     }
   }

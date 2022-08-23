@@ -487,14 +487,14 @@ export default {
     &__subtitle {
       color: $c-white;
       font-size: $fs-large;
-      margin-bottom: $gap-l;
+      margin-bottom: $gap-m;
     }
 
     &__image {
       border-radius: 8px;
       border: 2px solid $c-white;
-      justify-self: flex-end;
-      max-width: 320px;
+      justify-self: center;
+      max-width: 275px;
       width: 100%;
     }
 
@@ -554,13 +554,13 @@ export default {
 
       &__link {
         color: $c-secondary-darken;
-        margin-left: $gap-xxs;
+        margin-left: $gap-xxs / 2;
       }
     }
   }
 
   &__content {
-    padding: $gap-xl;
+    padding: $gap-m $gap-s;
 
     &__dropdown {
       & + & {
@@ -604,6 +604,7 @@ export default {
       &__image {
         grid-column: 2;
         grid-row: 1 / 4;
+        justify-self: flex-end;
       }
 
       &__list {
@@ -616,10 +617,15 @@ export default {
         &:last-child {
           margin-bottom: 0;
         }
+
+        &__link {
+          margin-left: $gap-xxs;
+        }
       }
     }
 
     &__content {
+      padding: $gap-xl;
       position: relative;
 
       &__dropdown {
@@ -632,7 +638,7 @@ export default {
 
 .info {
   &+& {
-    margin-top: $gap-m;
+    margin-top: $gap-l;
   }
 
   &__header {

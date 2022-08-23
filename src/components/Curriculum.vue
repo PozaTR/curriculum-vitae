@@ -74,7 +74,7 @@
                    :src="require(`@/assets/images/logo-${logo}.svg`)"
                    :alt="`Imagen con el logo de ${logo}`"
                    :key="`logo--${idx}-${Math.round(Math.random() * 1000)}`"
-                   class="curriculum_skill_logo"
+                   class="curriculum__skill__logo"
               />
             </div>
           </li>
@@ -312,10 +312,6 @@ export default {
           date: 1577833200000,
           links: [
             {
-              url: 'https://roci-invitation.web.app/',
-              icon: 'icon-new-tab'
-            },
-            {
               url: 'https://github.com/PozaTR/roci-Invitation',
               icon: 'icon-github'
             }
@@ -352,10 +348,6 @@ export default {
           title: "Caso de código heredado",
           date: 1546297200000,
           links: [
-            {
-              url: 'https://pozatr.github.io/g-m3-React-React-pita/#/',
-              icon: 'icon-new-tab'
-            },
             {
               url: 'https://github.com/PozaTR/g-m3-React-React-pita',
               icon: 'icon-github'
@@ -426,31 +418,37 @@ export default {
   mounted() {
     const desktopMode = window.matchMedia('(min-width: 724px)')
 
-    desktopMode.addListener((isDesktopMode) => {
-      console.log('window.matchMedia', isDesktopMode)
-      this.isDesktopMode = isDesktopMode.matches
+    const relocateMasonryItemsHandler = () => {
+      relocateMasonryItems({
+        masonryContainer: this.$refs.masonryContainer,
+        columnQty: 2
+      })
+    }
 
-      const relocateMasonryItemsHandler = () => {
+    const desktopModeResize = () => {
+      this.$refs.masonryContainer.style.visibility = 'hidden'
+      delay(() => {
         relocateMasonryItems({
           masonryContainer: this.$refs.masonryContainer,
-          columnQty: 3
+          columnQty: 2
         })
-      }
+      }, 500)
+          .then(() => {
+            this.$refs.masonryContainer.style.visibility = 'visible'
+          })
+
+      window.addEventListener('resize', relocateMasonryItemsHandler)
+    }
+
+    if (window.innerWidth >= 724) {
+      desktopModeResize()
+    }
+
+    desktopMode.addListener((isDesktopMode) => {
+      this.isDesktopMode = isDesktopMode.matches
 
       if (this.isDesktopMode) {
-        this.$refs.masonryContainer.style.visibility = 'hidden'
-        delay(() => {
-          relocateMasonryItems({
-            masonryContainer: this.$refs.masonryContainer,
-            columnQty: 3
-          })
-        }, 500)
-            .then(() => {
-          this.$refs.masonryContainer.style.visibility = 'visible'
-        })
-
-        window.addEventListener('resize', relocateMasonryItemsHandler)
-
+        desktopModeResize()
       } else {
         window.removeEventListener('resize', relocateMasonryItemsHandler)
         clearMasonryStyles({ masonryContainer: this.$refs.masonryContainer })
@@ -494,6 +492,7 @@ export default {
     &__image {
       border-radius: 8px;
       border: 2px solid $c-white;
+      justify-self: flex-end;
       max-width: 320px;
       width: 100%;
     }
@@ -560,7 +559,7 @@ export default {
   }
 
   &__content {
-    padding: $gap-xs;
+    padding: $gap-xl;
 
     &__dropdown {
       & + & {
@@ -571,16 +570,15 @@ export default {
 
   &__skill {
     &__container {
-      display: grid;
-      column-gap: 8px;
-      grid-template-columns: repeat(7, 40px);
-      grid-template-rows: 40px;
-      margin: $gap-s 0;
-      row-gap: $gap-xxs;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     &__logo {
-      background-color: red;
+      $size: 40px;
+      height: $size;
+      margin: $gap-xxs;
+      width: $size;
     }
   }
 
@@ -686,7 +684,7 @@ export default {
   &__date {
     font-size: $fs-x-small;
     color: $c-primary;
-    margin-bottom: $gap-xxs;
+    margin: ($gap-xxs - 4) 0 $gap-xxs;
     font-weight: 400;
 
     &::first-letter {

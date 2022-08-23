@@ -1,4 +1,5 @@
 export const relocateMasonryItems = (options) => {
+
    const {
      masonryContainer,
      columnQty = 3,
@@ -39,6 +40,7 @@ export const relocateMasonryItems = (options) => {
 }
 
 export const clearMasonryStyles = (options) => {
+
   const {
     masonryContainer
   } = options

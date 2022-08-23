@@ -37,6 +37,14 @@ export const relocateMasonryItems = (options) => {
     item.style.top = activeColumn.height + 'px'
     columnsInfo[activeColumn.idx].height += item.clientHeight + columnGap
   })
+
+  const biggestColumn = columnsInfo.reduce((acc, iter) => {
+    if (iter.height > acc) {
+      acc = iter.height
+    }
+    return acc
+  }, 0)
+  masonryContainer.style.height = `${biggestColumn}px`
 }
 
 export const clearMasonryStyles = (options) => {
@@ -52,6 +60,7 @@ export const clearMasonryStyles = (options) => {
     column.style.removeProperty('top')
     column.style.removeProperty('width')
   })
+  masonryContainer.style.removeProperty('height')
 }
 
 export const delay = (cb, miliseconds) => new Promise(resolve => {

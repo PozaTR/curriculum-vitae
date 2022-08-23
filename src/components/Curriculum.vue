@@ -441,6 +441,7 @@ export default {
     }
 
     if (window.innerWidth >= 724) {
+      this.isDesktopMode = true
       desktopModeResize()
     }
 

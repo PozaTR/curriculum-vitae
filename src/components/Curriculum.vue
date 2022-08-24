@@ -428,6 +428,12 @@ export default {
     },
     toggleLanguage(locale= 'es') {
       this.$i18n.locale = locale
+      this.$nextTick(() => {
+        relocateMasonryItems({
+          masonryContainer: this.$refs.masonryContainer,
+          columnQty: 2
+        })
+      })
     }
   },
   mounted() {

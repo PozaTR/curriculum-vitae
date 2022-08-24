@@ -23,6 +23,18 @@
           </li>
         </ul>
         <img class="curriculum__header__image" src="../assets/images/rocio_poza_portrait.jpg" alt="Foto Rocío Poza">
+        <ul class="curriculum__header__language">
+          <li
+            v-for="locale in $i18n.availableLocales"
+            :class="[
+              'curriculum__header__language__flag',
+              `curriculum__header__language__flag--${locale}`,
+              'ff-md'
+            ]"
+            :key="`locale-${locale}`"
+            @click="toggleLanguage(locale)"
+          ></li>
+        </ul>
       </div>
     </header>
     <section
@@ -90,7 +102,7 @@
               :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
               class="info">
             <div class="info__header">
-              <h4 class="info__title">{{$t(project.title)}}</h4>
+              <h4 class="info__title">{{project.title}}</h4>
               <div class="info__header">
                 <a v-for="(link, idx) in project.links"
                    class="info__link"
@@ -124,7 +136,7 @@
               v-for="(education, idx) in educationInfo"
               :key="`dropdown--${idx}-${Math.round(Math.random() * 1000)}`"
               class="info">
-            <h4 class="info__title">{{$t(education.title)}}</h4>
+            <h4 class="info__title">{{education.title}}</h4>
             <p class="info__date">{{ education.dateEnd ? `${formatDate(education.dateStart)} - ${formatDate(education.dateEnd)}` : `${formatDate(education.dateStart)} - ${$t('date_now')}` }}</p>
             <p v-if="education.place"
                class="info__subtitle">{{education.place}}</p>
@@ -413,6 +425,9 @@ export default {
       return onlyYear
         ? new Date(timestamp).toLocaleDateString('es', { year: 'numeric' })
         : new Date(timestamp).toLocaleDateString('es', { year: 'numeric', month: 'long'})
+    },
+    toggleLanguage(locale= 'es') {
+      this.$i18n.locale = locale
     }
   },
   mounted() {
@@ -473,6 +488,7 @@ export default {
       display: grid;
       justify-content: center;
       padding: $gap-xl $gap-xl $gap-xxl;
+      position: relative;
       text-align: center;
     }
 
@@ -481,6 +497,7 @@ export default {
       color: $c-secondary;
       font-size: $fs-x-large;
       font-weight: $fw-bold;
+      margin-top: $gap-xl;
       padding-bottom: 0.2em;
     }
 
@@ -557,6 +574,37 @@ export default {
         margin-left: 4px;
       }
     }
+
+    &__language {
+      position: absolute;
+      right: $gap-s;
+      top: $gap-s;
+
+      &__flag {
+        background-image:url('~@/assets/images/flagSprite42.png');
+        background-repeat:no-repeat;
+        background-size: 100% 49494%;
+        border: 1px solid lighten($c-black, 30);
+        filter: saturate(0.8);
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+        box-sizing: content-box;
+
+        &--es {background-position: left 0.2287%}
+        &--en {background-position: center 0.4524%}
+
+        &:first-child {
+          margin-right: $gap-xxs;
+        }
+
+        &.ff-sm {width: 18px;height: 11px}
+        &.ff-md {width: 27px;height: 17px}
+        &.ff-lg {width: 42px;height: 27px}
+        &.ff-xl {width: 60px;height: 37px}
+      }
+    }
   }
 
   &__content {
@@ -602,6 +650,7 @@ export default {
       }
 
       &__image {
+        align-self: flex-end;
         grid-column: 2;
         grid-row: 1 / 4;
         justify-self: flex-end;
@@ -621,6 +670,10 @@ export default {
         &__link {
           margin-left: $gap-xxs;
         }
+      }
+
+      &__language {
+        right: $gap-l;
       }
     }
 
@@ -701,6 +754,7 @@ export default {
 
   &__subtitle {
     color: $c-tertiary-darken;
+    margin: 4px 0;
   }
 
   &__content {

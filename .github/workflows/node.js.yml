@@ -32,4 +32,4 @@ jobs:
         git config --global user.email 'rocio.poza.tejeda@gmail.com'
         git add .
         git commit -m "Publish new version"
-        git push
+        git push origin master

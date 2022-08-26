@@ -28,6 +28,7 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - run: |
+        git pull
         git checkout main
         git config --global user.name 'PozaTR - githubActions'
         git config --global user.email 'rocio.poza.tejeda@gmail.com'

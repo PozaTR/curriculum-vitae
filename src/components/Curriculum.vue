@@ -103,7 +103,7 @@
               class="info">
             <div class="info__header">
               <h4 class="info__title">{{project.title}}</h4>
-              <div class="info__header">
+              <div class="info__header__links">
                 <a v-for="(link, idx) in project.links"
                    class="info__link"
                    :key="`link--${idx}-${Math.round(Math.random() * 1000)}`"
@@ -160,7 +160,7 @@
               <li
                   v-for="(certificate, idx2) in language.certificates"
                   :key="`certificate--${idx2}-${Math.round(Math.random() * 1000)}`">
-                <p class="info__subtitle">{{certificate.name}}</p>
+                <p class="info__subtitle info__subtitle__language">{{certificate.name}}</p>
                 <p class="info__date">{{ formatDate(certificate.date, true)}}</p>
               </li>
             </ol>
@@ -428,12 +428,15 @@ export default {
     },
     toggleLanguage(locale= 'es') {
       this.$i18n.locale = locale
-      this.$nextTick(() => {
-        relocateMasonryItems({
-          masonryContainer: this.$refs.masonryContainer,
-          columnQty: 2
+
+      if (window.innerWidth >= 724) {
+        this.$nextTick(() => {
+          relocateMasonryItems({
+            masonryContainer: this.$refs.masonryContainer,
+            columnQty: 2
+          })
         })
-      })
+      }
     }
   },
   mounted() {
@@ -591,12 +594,13 @@ export default {
         background-repeat:no-repeat;
         background-size: 100% 49494%;
         border: 1px solid lighten($c-black, 30);
-        filter: saturate(0.8);
+        box-sizing: content-box;
+        cursor: pointer;
         display: inline-block;
+        filter: saturate(0.8);
         overflow: hidden;
         position: relative;
         vertical-align: middle;
-        box-sizing: content-box;
 
         &--es {background-position: left 0.2287%}
         &--en {background-position: center 0.4524%}
@@ -624,6 +628,10 @@ export default {
   }
 
   &__skill {
+    &+& {
+      margin-top: $gap-xs;
+    }
+
     &__container {
       display: flex;
       flex-wrap: wrap;
@@ -638,7 +646,7 @@ export default {
   }
 
 
-  @media all and (min-width: 724px) {
+  @media all and (min-width: 724px), print {
     &__header {
       &__wrapper {
         grid-template-columns: 2fr 1fr;
@@ -682,7 +690,9 @@ export default {
         right: $gap-l;
       }
     }
+  }
 
+  @media all and (min-width: 724px) {
     &__content {
       padding: $gap-xl;
       position: relative;
@@ -690,6 +700,105 @@ export default {
       &__dropdown {
         position: absolute;
         margin: 0 !important;
+      }
+    }
+  }
+
+ @media print  {
+    &__header {
+      &__wrapper {
+        padding: $gap-xxl;
+      }
+
+      &__title {
+        margin-top: 0;
+        padding-bottom: 0.1em;
+      }
+
+      &__language {
+        display: none;
+      }
+
+      &__list {
+        margin-bottom: 0;
+        font-size: $fs-small;
+      }
+
+      &__item {
+        & + & {
+          margin-top: $gap-xxs - 4;
+        }
+
+        > * {
+          padding: 1px ($gap-xxs - 4);
+        }
+
+        &__label {
+          margin: 0 ($gap-xxs - 4);
+        }
+
+        &__link {
+          margin-left: 2px;
+        }
+      }
+
+      &__image {
+        width: 175px;
+        grid-row: 0/3;
+      }
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: $gap-m;
+      grid-template-rows: repeat(9, auto);
+      padding: $gap-m $gap-xxl 0;
+
+      &__dropdown {
+        & + & {
+          margin-top: 0;
+        }
+
+        &:nth-child(1) {
+          grid-column: 1/2;
+          grid-row: 1/3;
+        }
+
+        &:nth-child(2) {
+          margin-top: 0;
+          grid-column: 2/3;
+          grid-row: 1/3;
+        }
+
+        &:nth-child(4) {
+          grid-column: 1/2;
+          grid-row: 3/7;
+        }
+
+        &:nth-child(3) {
+          grid-column: 2/3;
+          grid-row: 3/5;
+        }
+
+        &:nth-child(5) {
+          grid-column: 2/3;
+          grid-row: 5/7;
+        }
+
+        &:nth-child(6) {
+          grid-column: 1/3;
+          grid-row: 7/8;
+        }
+      }
+    }
+
+    &__skill {
+      &__logo {
+        $size: 48px;
+        height: $size;
+        margin: $gap-xxs;
+        width: $size;
       }
     }
   }
@@ -704,6 +813,10 @@ export default {
     align-items: center;
     display: flex;
     justify-content: space-between;
+
+    &__links {
+      display: flex;
+    }
   }
 
   &__title {
@@ -766,10 +879,44 @@ export default {
   &__content {
     color: $c-tertiary-darken;
     font-weight: 300;
+    line-height: 1.2;
     margin-bottom: $gap-xxs;
 
     &::first-letter {
       text-transform: capitalize;
+    }
+  }
+
+  @media print  {
+    &+& {
+      margin-top: $gap-xxs;
+    }
+
+    &__title {
+      display: inline-block;
+    }
+
+    &__subtitle {
+      &__language {
+        display: inline-block;
+      }
+    }
+
+    &__header {
+      display: inline-block;
+
+      &__links {
+        display: none;
+      }
+    }
+
+    &__content {
+      line-height: 1.19;
+    }
+
+    &__date {
+      display: inline-block;
+      margin-left: 1em;
     }
   }
 }
